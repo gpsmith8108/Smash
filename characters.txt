@@ -1,0 +1,7 @@
+Kirby,5,
+Captin Falcon,8,
+Ness,3,
+Fox,10,
+Pichachu,9,
+Donkey Kong,3,
+Yoshi,2,
