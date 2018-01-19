@@ -82,6 +82,7 @@ void fill_ch_file(char *filename, struct ch_file *db)
     db->file = fopen(filename, "r+");
     char *temp = malloc(500);
     int c_pos = 0;
+    int num_c = 0;
 
     if(db->file ==NULL){
         die("File Failed to open");
@@ -92,20 +93,16 @@ void fill_ch_file(char *filename, struct ch_file *db)
 
 
 
-   // while(1){
+    while(1){
 
-        fread(db->character, sizeof(db->character),1,db->file);
-       // printf("%s \n", );
-         print_all(db);
+        num_c = fread(temp, sizeof(temp),1,db->file);
+        printf("I found: %s  and it returned: %i\n", temp, num_c);
 
-//        c_pos = interperate_line(temp);
 
-  //      printf("the comma is at: %i \n", c_pos);
-
-     //   if(feof(db->file)){
-       //     break;
-        //}
-   // }
+        if(feof(db->file)){
+            break;
+        }
+    }
 
 
 
