@@ -11,6 +11,10 @@
 
 #define MAX_C 512
 
+typedef int bool;
+#define true 1
+#define false 0
+
 struct ch_file
 {
 //This file holds the main character file, and a datbase with the characters
@@ -55,34 +59,16 @@ void add_ch(struct ch_file *db, int num, int rating, char *name)
 
 }
 
-int interperate_line(char *str)
-{
-    char *ptr = str;
-    int c_pos = 0;
-
-    while(*ptr != EOF){
-
-        if(*ptr == ','){
-            return c_pos;
-        }
-
-    ptr = ptr+1;
-    c_pos = c_pos +1;
-
-    }
-
-    die("There was no comma in one of the names in the characters sheet");
-
-    return -1;
-}
 void fill_ch_file(char *filename, struct ch_file *db)
 {
     debug("fill_ch_file start");
 
     db->file = fopen(filename, "r+");
-    char *temp = malloc(500);
-    int c_pos = 0;
+    char temp_name[50];
+    int temp_rating =0;
+    int db_num = 0;
     int num_c = 0;
+    bool next = false;
 
     if(db->file ==NULL){
         die("File Failed to open");
@@ -90,18 +76,32 @@ void fill_ch_file(char *filename, struct ch_file *db)
 
     debug("Middle of fill_ch_file start");
 
-
-
-
     while(1){
 
-        num_c = fread(temp, sizeof(temp),1,db->file);
-        printf("I found: %s  and it returned: %i\n", temp, num_c);
+	num_c = fgetc(db->file);
+        printf("Letter read: %c\n", num_c);
+        switch(num_c){
+
+            case ':' :
+                if(next){
+                   temp_rating = num_c;
+                   next = false;
+                }
+                next = true;
+            case '\n' :
+                add_ch(db,db_num,temp_rating,temp_name);
+                db_num++;
+            case EOF :
+                break;
+            default:
+                temp_name[strlen(temp_name)] = num_c;
+        }
 
 
         if(feof(db->file)){
             break;
         }
+
     }
 
 
@@ -128,12 +128,14 @@ int main(int argc, char *argv[])
   //   }
 
     struct ch_file *db = malloc(sizeof(struct ch_file));
-    char * filename = "characters.txt";
+    const char *filename = "characters.txt";
 
     debug("Main area");
 
     fill_ch_file(filename, db);
 
+
+    print_all(db);
 
     return 0;
 }
