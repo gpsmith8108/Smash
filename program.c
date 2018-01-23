@@ -24,7 +24,7 @@ struct ch_file
     char *character[MAX_C];
 };
 
-void die(const char *message)
+void die(const char *message)    //this is standard error message to abort the program
 {
     if(errno){
         perror(message);
@@ -35,12 +35,12 @@ void die(const char *message)
 
 }
 
-void print_ch(struct ch_file *db, int num)
+void print_ch(struct ch_file *db, int num)  //This will print a character given the file structure pointer and the number in the list
 {
     printf("Character: %s   Rating: %i \n", db->character[num], db->rating[num]);
 }
 
-void print_all(struct ch_file *db)
+void print_all(struct ch_file *db)  //This prints all of the characters in the File structure
 {
     int i = 0;
 
@@ -51,7 +51,7 @@ void print_all(struct ch_file *db)
     }
 }
 
-void add_ch(struct ch_file *db, int num, int rating, char *name)
+void add_ch(struct ch_file *db, int num, int rating, char *name)  //given the file structure, character number, rating, character name it adds it to the structure
 {
 
     db->character[num] = name;
@@ -59,20 +59,20 @@ void add_ch(struct ch_file *db, int num, int rating, char *name)
 
 }
 
-void fill_ch_file(char *filename, struct ch_file *db)
+void fill_ch_file(char *filename, struct ch_file *db) // given a file name and a struct it fills it
 {
     debug("fill_ch_file start");
 
-    db->file = fopen(filename, "r+");
-    char temp_name[50];
-    int temp_rating =0;
+    db->file = fopen(filename, "r+");   //opens the file
+
+    char *temp_name = malloc(50);
+    int temp_rating = 0;
     int db_num = 0;
     int num_c = 0;
     bool next = false;
-    char *temp = malloc(50);
+    int i = 0;
 
-
-    if(db->file ==NULL){
+    if(db->file ==NULL){                  //if the file cant open, abort
         die("File Failed to open");
     }
 
@@ -80,23 +80,30 @@ void fill_ch_file(char *filename, struct ch_file *db)
     while(1){
 
 	num_c = fgetc(db->file);
-        printf("Letter read: %c\n", num_c);
+        debug("Letter read: %c\n", num_c);
         switch(num_c){
 
             case ':' :
-                if(next){
-                   temp_rating = num_c-49;
-                   next = false;
-                }
                 next = true;
 		break;
             case '\n' :
                 debug("Here is the next line: db_num = %i",db_num);
+                debug("Temp_rating = %i, temp_name = %s",temp_rating, temp_name);
                 add_ch(db,db_num,temp_rating,temp_name);
                 db_num++;
-		break;
+                temp_name = malloc(50);
+		i = 0;
+                break;
             default:
-                temp_name[strlen(temp_name)] = num_c;
+                if(next){
+                   temp_rating = num_c-48;
+                   next = false;
+                   break;
+                }
+                temp_name[i] = num_c;
+                i++;
+
+
         }
 
 
