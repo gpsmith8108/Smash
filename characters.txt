@@ -2,6 +2,6 @@ Donkey_Kong:3
 Captin_Falcon:8
 Kirby:5
 Ness:3
-Fox:10
+Fox:9
 Pichachu:9
 Yoshi:2

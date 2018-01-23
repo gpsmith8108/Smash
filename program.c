@@ -69,12 +69,13 @@ void fill_ch_file(char *filename, struct ch_file *db)
     int db_num = 0;
     int num_c = 0;
     bool next = false;
+    char *temp = malloc(50);
+
 
     if(db->file ==NULL){
         die("File Failed to open");
     }
 
-    debug("Middle of fill_ch_file start");
 
     while(1){
 
@@ -84,15 +85,16 @@ void fill_ch_file(char *filename, struct ch_file *db)
 
             case ':' :
                 if(next){
-                   temp_rating = num_c;
+                   temp_rating = num_c-49;
                    next = false;
                 }
                 next = true;
+		break;
             case '\n' :
+                debug("Here is the next line: db_num = %i",db_num);
                 add_ch(db,db_num,temp_rating,temp_name);
                 db_num++;
-            case EOF :
-                break;
+		break;
             default:
                 temp_name[strlen(temp_name)] = num_c;
         }
