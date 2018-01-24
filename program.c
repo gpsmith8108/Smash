@@ -77,10 +77,10 @@ void fill_ch_file(char *filename, struct ch_file *db) // given a file name and a
     }
 
 
-    while(1){
+    while(1){                                                        //Reads in the chars one by one from the text file
 
 	num_c = fgetc(db->file);
-        debug("Letter read: %c\n", num_c);
+//        debug("Letter read: %c\n", num_c);
         switch(num_c){
 
             case ':' :
@@ -105,16 +105,13 @@ void fill_ch_file(char *filename, struct ch_file *db) // given a file name and a
 
 
         }
-
-
         if(feof(db->file)){
             break;
         }
-
     }
 
-
-
+    fclose(db->file);            //Frees up resources when finished
+    free(temp_name);
 
     debug("Fill_ch_file end");
 }
