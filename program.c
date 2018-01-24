@@ -1,16 +1,15 @@
-//#define NDEBUG
+#define NDEBUG
 
 #include "dbg.h"
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
-
+#include <time.h>
 
 
 //This program will chose fair super smash brother teams
 
 #define MAX_C 512
-
 typedef int bool;
 #define true 1
 #define false 0
@@ -22,6 +21,12 @@ struct ch_file
     FILE *file;
     int *rating[MAX_C];
     char *character[MAX_C];
+    int num_characters;
+};
+
+struct ft
+{
+    int players[4];
 };
 
 void die(const char *message)    //this is standard error message to abort the program
@@ -106,6 +111,7 @@ void fill_ch_file(char *filename, struct ch_file *db) // given a file name and a
 
         }
         if(feof(db->file)){
+            db->num_characters = db_num;
             break;
         }
     }
@@ -116,6 +122,33 @@ void fill_ch_file(char *filename, struct ch_file *db) // given a file name and a
     debug("Fill_ch_file end");
 }
 
+void total_random(struct ch_file *db, struct ft *final_teams)
+{
+    int i = 0;
+    srand(time(NULL));   // should only be called once
+
+
+    for(i = 0; i<4; i++){
+        int r = rand() % db->num_characters;      // returns a pseudo-random integer between 0 and RAND_MAX
+        printf("Number: %i \n",r);
+        final_teams->players[i] = r;
+    }
+
+}
+
+
+void print_teams(struct ch_file *db, struct ft *final_teams)
+{
+
+     printf("Team one: \n");
+     print_ch(db, final_teams->players[0]);
+     print_ch(db, final_teams->players[1]);
+     printf("Team two: \n");
+     print_ch(db, final_teams->players[2]);
+     print_ch(db, final_teams->players[3]);
+
+
+}
 void test_print(struct ch_file *db)
 {
     add_ch(db,0,7,"Kirby");
@@ -134,14 +167,17 @@ int main(int argc, char *argv[])
   //   }
 
     struct ch_file *db = malloc(sizeof(struct ch_file));
+    struct ft* final_teams = malloc(sizeof(struct ft));
     const char *filename = "characters.txt";
 
     debug("Main area");
 
     fill_ch_file(filename, db);
+//    printf("There are %i characters. \n", db->num_characters);
+//    print_all(db);
 
-
-    print_all(db);
+    total_random(db,final_teams);
+    print_teams(db,final_teams);
 
     return 0;
 }
