@@ -20,9 +20,11 @@ typedef int bool;
 #define false 0
 
 
-/*This struct holds the main character file, and a datbase with the          */
-/*character and their rating, like slot character[0] corresponds with        */
-/*rating[0]                                                                  */
+/*
+*This struct holds the main character file, and a datbase with the
+*character and their rating, like slot character[0] corresponds with
+*rating[0]
+*/
 struct ch_file
 {
     FILE *file;
@@ -37,7 +39,7 @@ struct ft
 };
 
 
-/*This is the standard error message to abort the program                    */
+/*This is the standard error message to abort the program*/
 void die(const char *message)
 {
     if(errno){
@@ -49,14 +51,18 @@ void die(const char *message)
 
 }
 
-/*This will print a character given the file structure pointer and the number*/
-/*in the list.                                                               */
+/*
+*This will print a character given the file structure pointer and the number
+*in the list.
+*/
 void print_ch(struct ch_file *db, int num)
 {
-    printf("Character: %s   Rating: %i \n", db->character[num], db->rating[num]);
+    printf("Character: %s   Rating: %i \n", db->character[num],
+         db->rating[num]);
 }
 
-void print_all(struct ch_file *db)  //This prints all of the characters in the File structure
+/*This prints all of the characters in the File structure*/
+void print_all(struct ch_file *db)
 {
     int i = 0;
 
@@ -68,45 +74,45 @@ void print_all(struct ch_file *db)  //This prints all of the characters in the F
     }
 }
 
-void add_ch(struct ch_file *db, int num, int rating, char *name)  //given the file structure, character number, rating, character name it adds it to the structure
+/*
+*Adds a character to the structrue held in db.
+*It requires the file structure, character number, rating, character name.
+*/
+void add_ch(struct ch_file *db, int num, int rating, char *name)
 {
 
     db->character[num] = name;
     db->rating[num] = rating;
 
 }
-
+/*
+*Switched the positions of character A an dcharacter B in the file
+*structure db
+*/
 void switch_places(struct ch_file *db, int A, int B){
 
-
-     printf("--------------------------------------\n");
-     printf("I am switching position:%i with position: %i \n", A, B);
-     printf("Current: \n");
-     print_all(db);
-     if(A == B)
+    debug("I am switching position:%i with position: %i \n", A, B);
+    if(A == B)
         return;
 
-     int t_ch = db->rating[A];
-     char *t_name = db->character[A];
+    int t_ch = db->rating[A];
+    char *t_name = db->character[A];
 
-     db->rating[A] = db->rating[B];
-     db->character[A] = db->character[B];
+    db->rating[A] = db->rating[B];
+    db->character[A] = db->character[B];
 
-
-     db->rating[B] = t_ch;
-     db->character[B] = t_name;
-
-     printf("--------------------------------------\n");
-     print_all(db);
+    db->rating[B] = t_ch;
+    db->character[B] = t_name;
 
 }
 
 
-void fill_ch_file(char *filename, struct ch_file *db) // given a file name and a struct it fills it
+/* Given a file name and a struct it fills it*/
+void fill_ch_file(char *filename, struct ch_file *db)
 {
     debug("fill_ch_file start");
 
-    db->file = fopen(filename, "r+");   //opens the file
+    db->file = fopen(filename, "r+");     /*opens the file*/
 
     char *temp_name = malloc(50);
     int temp_rating = 0;
@@ -115,15 +121,17 @@ void fill_ch_file(char *filename, struct ch_file *db) // given a file name and a
     bool next = false;
     int i = 0;
 
-    if(db->file ==NULL){                  //if the file cant open, abort
+    if(db->file ==NULL){                  /*if the file cant open, abort*/
         die("File Failed to open");
     }
 
+    while(1){
 
-    while(1){                                                        //Reads in the chars one by one from the text file
-
-	num_c = fgetc(db->file);
-//        debug("Letter read: %c\n", num_c);
+        /*
+        *Reads in each character one by one, looking for ':'
+        */
+        num_c = fgetc(db->file);
+        //debug("Letter read: %c\n", num_c);
         switch(num_c){
 
             case ':' :
@@ -168,7 +176,7 @@ void total_random(struct ch_file *db, struct ft *final_teams)
     int r = 0;
     for(i = 0; i<4; i++){
         r = rand() % choices;      // returns a pseudo-random integer between 0 and RAND_MAX
-        printf("Number: %i \n",r);
+        debug("Number: %i \n",r);
         final_teams->players[i] = r;
         switch_places(db, r, choices);
         choices --;
@@ -216,7 +224,7 @@ int main(int argc, char *argv[])
     debug("Main area");
 
     fill_ch_file(filename, db);
-    printf("There are %i characters. \n", db->num_characters);
+    debug("There are %i characters. \n", db->num_characters);
 //    print_all(db);
 
 //     test_print(db);
