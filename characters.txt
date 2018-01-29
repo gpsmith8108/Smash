@@ -1,12 +1,12 @@
-Luigi            :6
-Mario            :7
-Pichachu         :9
-Samus            :8
 Ness             :3
-Kirby            :5
-Yoshi            :2
 Captin Falcon    :8
-Donkey Kong      :3
-Link             :9
-JigglyPuff       :4
+Mario            :7
 Fox              :9
+JigglyPuff       :4
+Samus            :8
+Link             :9
+Pichachu         :9
+Luigi            :6
+Yoshi            :2
+Donkey Kong      :3
+Kirby            :5

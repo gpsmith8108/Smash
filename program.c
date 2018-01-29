@@ -15,6 +15,7 @@
 #include <time.h>
 
 #define MAX_C 512
+#define TEAM_SIZE 2
 typedef int bool;
 #define true 1
 #define false 0
@@ -175,14 +176,8 @@ void write_to_file(struct ch_file *db, const char *filename)
     fp = fopen(filename,"w");
 
     for(i = 0; i < db->num_characters+1; i++){
-
         fprintf(fp, "%s:%i\n",db->character[i],db->rating[i]);
-
     }
-
-
-
-
 
 }
 
@@ -199,6 +194,28 @@ void total_random(struct ch_file *db)
         switch_places(db, r, choices);
         choices --;
     }
+
+}
+void total_random_no_repeat(struct ch_file *db)
+{
+    int i = 0;
+    srand(time(NULL));   /*should only be called once*/
+    int choices = db->num_characters-(TEAM_SIZE*2);
+    int r = 0;
+    for(i = 0; i<TEAM_SIZE*2; i++){
+        /* Returns a pseudo-random integer between 0 and RAND_MAX*/
+        r = rand() % choices;
+        debug("Number: %i \n",r);
+        switch_places(db, r, choices);
+        choices --;
+    }
+
+    for(i = 0; i<TEAM_SIZE*2; i++){
+        switch_places(db, db->num_characters-TEAM_SIZE*2-i,
+            db->num_characters-i);
+    }
+
+
 
 }
 
@@ -246,7 +263,7 @@ int main(int argc, char *argv[])
 //    print_all(db);
 
 
-    total_random(db);
+    total_random_no_repeat(db);
     print_teams(db);
     write_to_file(db, filename);
 
