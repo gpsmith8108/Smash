@@ -1,3 +1,11 @@
+/*
+* Super Smash Brothers Fair teams selector
+* -----------------------------------------
+* This Program will select fair Super Smash Brothers
+* teams for one, two, three, or four player player mode
+*/
+
+/*Comment out the line below to recieve debug messages*/
 #define NDEBUG
 
 #include "dbg.h"
@@ -6,18 +14,17 @@
 #include <stdlib.h>
 #include <time.h>
 
-
-//This program will chose fair super smash brother teams
-
 #define MAX_C 512
 typedef int bool;
 #define true 1
 #define false 0
 
+
+/*This struct holds the main character file, and a datbase with the          */
+/*character and their rating, like slot character[0] corresponds with        */
+/*rating[0]                                                                  */
 struct ch_file
 {
-//This file holds the main character file, and a datbase with the characters
-//and their rating, like slot character[0] corresponds with rating[0]
     FILE *file;
     int *rating[MAX_C];
     char *character[MAX_C];
@@ -29,7 +36,9 @@ struct ft
     int players[4];
 };
 
-void die(const char *message)    //this is standard error message to abort the program
+
+/*This is the standard error message to abort the program                    */
+void die(const char *message)
 {
     if(errno){
         perror(message);
@@ -40,7 +49,9 @@ void die(const char *message)    //this is standard error message to abort the p
 
 }
 
-void print_ch(struct ch_file *db, int num)  //This will print a character given the file structure pointer and the number in the list
+/*This will print a character given the file structure pointer and the number*/
+/*in the list.                                                               */
+void print_ch(struct ch_file *db, int num)
 {
     printf("Character: %s   Rating: %i \n", db->character[num], db->rating[num]);
 }
