@@ -33,11 +33,6 @@ struct ch_file
     int num_characters;
 };
 
-struct ft
-{
-    int players[4];
-};
-
 
 /*This is the standard error message to abort the program*/
 void die(const char *message)
@@ -131,7 +126,6 @@ void fill_ch_file(char *filename, struct ch_file *db)
         *Reads in each character one by one, looking for ':'
         */
         num_c = fgetc(db->file);
-        //debug("Letter read: %c\n", num_c);
         switch(num_c){
 
             case ':' :
@@ -139,7 +133,8 @@ void fill_ch_file(char *filename, struct ch_file *db)
 		break;
             case '\n' :
                 debug("Here is the next line: db_num = %i",db_num);
-                debug("Temp_rating = %i, temp_name = %s",temp_rating, temp_name);
+                debug("Temp_rating = %i, temp_name = %s",
+                    temp_rating, temp_name);
                 add_ch(db,db_num,temp_rating,temp_name);
                 db_num++;
                 temp_name = malloc(50);
@@ -162,30 +157,55 @@ void fill_ch_file(char *filename, struct ch_file *db)
         }
     }
 
-    fclose(db->file);            //Frees up resources when finished
+    fclose(db->file);            /*Frees up resources when finished*/
     free(temp_name);
 
     debug("Fill_ch_file end");
 }
 
-void total_random(struct ch_file *db, struct ft *final_teams)
+/*
+*Writes to the filename given in the order it is recieved
+*/
+void write_to_file(struct ch_file *db, const char *filename)
+{
+
+    int i = 0;
+    FILE * fp;
+
+    fp = fopen(filename,"w");
+
+    for(i = 0; i < db->num_characters+1; i++){
+
+        fprintf(fp, "%s:%i\n",db->character[i],db->rating[i]);
+
+    }
+
+
+
+
+
+}
+
+void total_random(struct ch_file *db)
 {
     int i = 0;
-    srand(time(NULL));   // should only be called once
+    srand(time(NULL));   /*should only be called once*/
     int choices = db->num_characters;
     int r = 0;
     for(i = 0; i<4; i++){
-        r = rand() % choices;      // returns a pseudo-random integer between 0 and RAND_MAX
+        /* Returns a pseudo-random integer between 0 and RAND_MAX*/
+        r = rand() % choices;
         debug("Number: %i \n",r);
-        final_teams->players[i] = r;
         switch_places(db, r, choices);
         choices --;
     }
 
 }
 
-
-void print_teams(struct ch_file *db, struct ft *final_teams)
+/*
+*Prints out last four characters in the list as the teams
+*/
+void print_teams(struct ch_file *db)
 {
      int num_high = db->num_characters;
 
@@ -218,19 +238,17 @@ int main(int argc, char *argv[])
   //   }
 
     struct ch_file *db = malloc(sizeof(struct ch_file));
-    struct ft* final_teams = malloc(sizeof(struct ft));
     const char *filename = "characters.txt";
 
-    debug("Main area");
 
     fill_ch_file(filename, db);
     debug("There are %i characters. \n", db->num_characters);
 //    print_all(db);
 
-//     test_print(db);
 
-    total_random(db,final_teams);
-    print_teams(db,final_teams);
+    total_random(db);
+    print_teams(db);
+    write_to_file(db, filename);
 
     return 0;
 }
