@@ -234,12 +234,13 @@ void order(struct ch_file *db)
     int temp_rate = 0;
     int n = db->num_characters;
 
-    for(i = 0; i<TEAM_SIZE*2-1;i++ ){
+    for(i = 0; i<TEAM_SIZE*2;i++ ){
         debug("The first person's rating is %i, and it is compared with %i", db->rating[n-i], temp_rate);
         if(db->rating[n-i] > temp_rate){
+            print_all(db);
             debug("I am switching position %i, with position %i",n-i, n);
             temp_rate = db->rating[n-i];
-            switch(db,n-i,n);
+            switch_places(db,n-i,n);
         }
     }
 

@@ -1,12 +1,12 @@
+Yoshi            :2
+JigglyPuff       :4
 Captin Falcon    :8
 Mario            :7
-Ness             :3
-Samus            :8
-Link             :9
-Fox              :9
-Yoshi            :2
 Donkey Kong      :3
-JigglyPuff       :4
-Kirby            :5
-Pichachu         :9
 Luigi            :6
+Fox              :9
+Pichachu         :9
+Samus            :8
+Kirby            :5
+Ness             :3
+Link             :9
