@@ -1,3 +1,5 @@
+# WARNING: Garrett probably messed something up
+
 # Smash
 Super Smash brothers Team Selector
 
