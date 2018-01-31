@@ -2,11 +2,19 @@
 * Super Smash Brothers Fair teams selector
 * -----------------------------------------
 * This Program will select fair Super Smash Brothers
-* teams for one, two, three, or four player player mode
+* teams.
+*
+* Detailed Description:
+* The program draws the names and ratings out of the character.txt file and
+* fills the struct ch_file with their names and ratings.  Then the numbers
+* are randomly selected, to determie the characters for each team.  The
+* characters are then moved to the last 4 places in the struct ch_file.
+* Then they can be used as is, or they can be filtered more using the ratings
+*
 */
 
 /*Comment out the line below to recieve debug messages*/
-#define NDEBUG
+//#define NDEBUG
 
 #include "dbg.h"
 #include <stdio.h>
@@ -209,13 +217,31 @@ void total_random_no_repeat(struct ch_file *db)
         switch_places(db, r, choices);
         choices --;
     }
-
+    /*Moves the selected teams to the last 4 places in the chart*/
     for(i = 0; i<TEAM_SIZE*2; i++){
         switch_places(db, db->num_characters-TEAM_SIZE*2-i,
             db->num_characters-i);
     }
+}
 
+/*
+*Orders the last four characters according to their ratings
+*/
+void order(struct ch_file *db)
+{
+    int i = 0;
+    int j = 0;
+    int temp_rate = 0;
+    int n = db->num_characters;
 
+    for(i = 0; i<TEAM_SIZE*2-1;i++ ){
+        debug("The first person's rating is %i, and it is compared with %i", db->rating[n-i], temp_rate);
+        if(db->rating[n-i] > temp_rate){
+            debug("I am switching position %i, with position %i",n-i, n);
+            temp_rate = db->rating[n-i];
+            switch(db,n-i,n);
+        }
+    }
 
 }
 
@@ -227,11 +253,15 @@ void print_teams(struct ch_file *db)
      int num_high = db->num_characters;
 
      printf("Team one: \n");
+     printf("#1\n");
      print_ch(db, num_high);
-     print_ch(db, num_high-1);
-     printf("Team two: \n");
-     print_ch(db, num_high-2);
+     printf("#4\n");
      print_ch(db, num_high-3);
+     printf("Team two: \n");
+     printf("#2\n");
+     print_ch(db, num_high-1);
+     printf("#3\n");
+     print_ch(db, num_high-2);
 
 
 }
@@ -264,6 +294,7 @@ int main(int argc, char *argv[])
 
 
     total_random_no_repeat(db);
+    order(db);
     print_teams(db);
     write_to_file(db, filename);
 
