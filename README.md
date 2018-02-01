@@ -15,10 +15,10 @@ Commands:
 The program works by pulling in the characters listed in characters.txt, but they must be in 
 the format below:
 
-Fox                :9
-Kirby              :8
-ect.  
-[Name]             :[rating]
+    Fox                :9
+    Kirby              :8
+    ect.  
+    [Name]             :[rating]
 
 
 The ratings must be one digit.
