@@ -32,13 +32,13 @@ not be repeated in 2 subsequent runnings.
 Now it is currently being developed so that the ratings affect the players on each team.
 The goal is:
 
-Team One:
-Player One:     1st Highest Rated Character
-Player Two:     4th Highest Rated Character
+    Team One:
+    Player One:     1st Highest Rated Character
+    Player Two:     4th Highest Rated Character
 
-Team Two:
-Player Three:   2nd Highest Rated Character
-Player Four:    3rd Highest Rated Character
+    Team Two:
+    Player Three:   2nd Highest Rated Character
+    Player Four:    3rd Highest Rated Character
 
 
 However this goal has not been realized yet.
