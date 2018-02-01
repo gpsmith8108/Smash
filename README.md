@@ -41,4 +41,3 @@ The goal is:
     Player Four:    3rd Highest Rated Character
 
 
-However this goal has not been realized yet.
