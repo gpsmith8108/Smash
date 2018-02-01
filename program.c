@@ -14,7 +14,7 @@
 */
 
 /*Comment out the line below to recieve debug messages*/
-//#define NDEBUG
+#define NDEBUG
 
 #include "dbg.h"
 #include <stdio.h>
@@ -234,14 +234,22 @@ void order(struct ch_file *db)
     int temp_rate = 0;
     int n = db->num_characters;
 
-    for(j = 0; j<TEAM_SIZE*2;j++ ){
-        debug("The first person's rating is %i, and it is compared with %i", db->rating[n-j], temp_rate);
-        if(db->rating[n-j] > temp_rate){
-            print_all(db);
-            debug("I am switching position %i, with position %i",n-j, n);
-            temp_rate = db->rating[n-j];
-            switch_places(db,n-j,n);
+    for(i = 0; i<TEAM_SIZE*2-1; i++){
+
+        temp_rate = 0;
+
+        for(j = 0; j<TEAM_SIZE*2-i;j++ ){
+            debug("The first person's rating is %i, and it is compared with %i", db->rating[n-j], temp_rate);
+            if(db->rating[n-j] > temp_rate){
+                //print_all(db);
+                debug("I am switching position %i, with position %i",n-j, n);
+                temp_rate = db->rating[n-j];
+                switch_places(db,n-j,n);
+            }
         }
+
+        n--;
+
     }
 
 }
