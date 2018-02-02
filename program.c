@@ -122,7 +122,8 @@ void fill_ch_file(char *filename, struct ch_file *db)
 
     char *temp_name = malloc(50);
     int temp_rating = 0;
-    char temp_srate[5];
+    int rate_size = 5;
+    char temp_srate[rate_size];
     int db_num = 0;
     int num_c = 0;
     bool next = false;
@@ -151,6 +152,7 @@ void fill_ch_file(char *filename, struct ch_file *db)
                     temp_rating, temp_name);
                 add_ch(db,db_num,temp_rating,temp_name);
                 db_num++;
+                memset(temp_srate, 0, sizeof temp_srate);
                 temp_name = malloc(50);
 		i = 0;
                 j = 0;
