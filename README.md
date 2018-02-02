@@ -21,7 +21,7 @@ the format below:
     [Name]             :[rating]
 
 
-The ratings must be one digit.
+The ratings can be one to five digits.
 
 Then the program will randomly chose 4 and move them to the last 4 positions
 of the text file.  These 4 will be the teams that are chosen.
