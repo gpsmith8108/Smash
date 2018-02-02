@@ -239,7 +239,8 @@ void order(struct ch_file *db)
         temp_rate = 0;
 
         for(j = 0; j<TEAM_SIZE*2-i;j++ ){
-            debug("The first person's rating is %i, and it is compared with %i", db->rating[n-j], temp_rate);
+            debug("The first person's rating is %i, and it is compared with %i"
+                , db->rating[n-j], temp_rate);
             if(db->rating[n-j] > temp_rate){
                 //print_all(db);
                 debug("I am switching position %i, with position %i",n-j, n);
@@ -247,9 +248,7 @@ void order(struct ch_file *db)
                 switch_places(db,n-j,n);
             }
         }
-
         n--;
-
     }
 
 }
