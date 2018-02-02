@@ -21,6 +21,8 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+
 
 #define MAX_C 512
 #define TEAM_SIZE 2
@@ -120,10 +122,12 @@ void fill_ch_file(char *filename, struct ch_file *db)
 
     char *temp_name = malloc(50);
     int temp_rating = 0;
+    char temp_srate[5];
     int db_num = 0;
     int num_c = 0;
     bool next = false;
     int i = 0;
+    int j = 0;
 
     if(db->file ==NULL){                  /*if the file cant open, abort*/
         die("File Failed to open");
@@ -141,18 +145,21 @@ void fill_ch_file(char *filename, struct ch_file *db)
                 next = true;
 		break;
             case '\n' :
-                debug("Here is the next line: db_num = %i",db_num);
+                temp_rating = atoi(temp_srate);
+              debug("Here is the next line: db_num = %i",db_num);
                 debug("Temp_rating = %i, temp_name = %s",
                     temp_rating, temp_name);
                 add_ch(db,db_num,temp_rating,temp_name);
                 db_num++;
                 temp_name = malloc(50);
 		i = 0;
+                j = 0;
+                next = false;
                 break;
             default:
                 if(next){
-                   temp_rating = num_c-48;
-                   next = false;
+                   temp_srate[j] = num_c;
+                   j++;
                    break;
                 }
                 temp_name[i] = num_c;
