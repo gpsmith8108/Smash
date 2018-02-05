@@ -270,50 +270,27 @@ void print_teams(struct ch_file *db)
      int num_high = db->num_characters;
 
      printf("Team one: \n");
-     printf("#1\n");
      print_ch(db, num_high);
-     printf("#4\n");
      print_ch(db, num_high-3);
      printf("Team two: \n");
-     printf("#2\n");
      print_ch(db, num_high-1);
-     printf("#3\n");
      print_ch(db, num_high-2);
 
 
 }
-void test_print(struct ch_file *db)
-{
-    add_ch(db,0,7,"Kirby");
-    add_ch(db,1,5,"Fox");
-    add_ch(db,2,3,"Ness");
-
-    print_all(db);
-    switch_places(db,1,0);
-
-}
-
 
 int main(int argc, char *argv[])
 {
 
-  //  if(argc != 3){
-  //      die("It should be [identifier:ie -g] [filename]");
-  //   }
-
     struct ch_file *db = malloc(sizeof(struct ch_file));
     const char *filename = "characters.txt";
 
+    fill_ch_file(filename, db);    /*Reads the characters stored in filename*/
 
-    fill_ch_file(filename, db);
-    debug("There are %i characters. \n", db->num_characters);
-//    print_all(db);
-
-
-    total_random_no_repeat(db);
-    order(db);
-    print_teams(db);
-    write_to_file(db, filename);
+    total_random_no_repeat(db);    /*Choses 4 random chars/moves Position*/
+    order(db);                     /*Orders the chosen chars according to rate*/
+    print_teams(db);               /*prints teams*/
+    write_to_file(db, filename);   /*Writes thenew order to filename*/
 
     return 0;
 }

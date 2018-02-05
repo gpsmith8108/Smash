@@ -1,12 +1,12 @@
-Fox              :434
-Ness             :233
-Captian Falcon   :111
-Link             :122
-Donkey Kong      :211
-Yoshi            :224
-JigglyPuff       :434
-Samus            :844
-Pichachu         :3
-Luigi            :634
-Mario            :734
-Kirby            :734
+Luigi            :70
+Fox              :100
+Kirby            :85
+Mario            :78
+JigglyPuff       :35
+Donkey Kong      :67
+Link             :95
+Pichachu         :110
+Ness             :24
+Yoshi            :45
+Captian Falcon   :90
+Samus            :95
