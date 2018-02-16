@@ -29,15 +29,12 @@ of the text file.  These 4 will be the teams that are chosen.
 It is designed so that no 2 characters will appear twice or that characters will 
 not be repeated in 2 subsequent runnings.
 
-Now it is currently being developed so that the ratings affect the players on each team.
-The goal is:
+The ratings affect the teams in the way described below:
 
-    Team One:
-    Player One:     1st Highest Rated Character
-    Player Two:     4th Highest Rated Character
+    Team 1:
+    character 1 <rank 1>
+    character 2 <rank 4>
 
-    Team Two:
-    Player Three:   2nd Highest Rated Character
-    Player Four:    3rd Highest Rated Character
-
-
+    Team 2:
+    character 3 <rank 2>
+    character 4 <rank 3>
