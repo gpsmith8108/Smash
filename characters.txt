@@ -1,12 +1,12 @@
+Kirby            :10
+Luigi            :3
+Captian Falcon   :7
 Mario            :2
 JigglyPuff       :1
-Ness             :5
-Link             :11
-Luigi            :3
 Donkey Kong      :4
 Samus            :8
 Fox              :12
+Ness             :5
 Yoshi            :6
-Captian Falcon   :7
 Pichachu         :9
-Kirby            :10
+Link             :11

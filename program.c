@@ -213,6 +213,8 @@ void total_random(struct ch_file *db)
     }
 
 }
+
+
 void total_random_no_repeat(struct ch_file *db)
 {
     int i = 0;
