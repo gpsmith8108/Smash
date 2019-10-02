@@ -1,8 +1,8 @@
 Pichachu         :9
-Captian Falcon   :7
+Captian Falcon   :2
 Samus            :8
 Fox              :12
-Mario            :2
+Mario            :7
 Donkey Kong      :4
 Yoshi            :6
 Link             :11
