@@ -17,6 +17,7 @@ the format below:
 
     Fox                :9
     Kirby              :8
+    Captain Falcon     :4
     ect.  
     [Name]             :[rating]
 
